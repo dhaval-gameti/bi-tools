@@ -1,0 +1,491 @@
+
+/* Textbox Editor Styles */
+        .control-panel {
+            width: 100%;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-sizing: border-box;
+        }
+
+        #textboxPreview {
+            border: 1px dashed #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            height: 100px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #textboxPreview .ql-editor {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            font-size: 16px;
+            line-height: 1.6;
+            height: 100%;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        #quill-container {
+            flex-grow: 1;
+            background: #fff;
+            border: 1px solid #ccc;
+        }
+        
+        .ql-toolbar {
+            border-bottom: 1px solid #ccc !important;
+            background: #f9f9f9;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .ql-container {
+            border: none !important;
+            flex-grow: 1;
+        }
+
+        .ql-editor {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            font-size: 16px;
+            line-height: 1.6;
+            height: 100%;
+            overflow-y: auto;
+        }
+        
+        .ql-container.ql-snow {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .box {
+          position: absolute;
+          display: inline-block;
+          touch-action: none;
+          user-select: none;
+          background: #ffffff;
+          border: 1px solid #cfcfcf;
+          box-sizing: border-box;
+          transform-origin: center center;
+          padding: 6px;
+          transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .box .txt {
+          min-width: 200px;
+          min-height: 40px;
+          padding: 6px 8px;
+          font-size: 16px;
+          border: none;
+          outline: none;
+          box-sizing: border-box;
+          background: transparent;
+          user-select: none;
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          cursor: move;
+        }
+        
+        .box.selected {
+          box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+          border-color: #4299e1;
+        }
+
+        .box.edit-mode {
+          border: 2px dashed #ff6b35;
+          box-shadow: 0 0 15px rgba(255,107,53,0.3);
+        }
+        
+        .box.edit-mode .txt {
+          cursor: text;
+        }
+        
+        .box .txt p:last-child {
+            margin-bottom: 0;
+        }
+
+        .resize-handle {
+          width: 12px;
+          height: 12px;
+          background: #6b7280;
+          position: absolute;
+          right: 2px;
+          bottom: 2px;
+          touch-action: none;
+          display: none;
+          border-radius: 2px;
+          cursor: se-resize;
+        }
+
+        .rotate-handle {
+          width: 14px;
+          height: 14px;
+          background: #ff6b35;
+          border-radius: 50%;
+          position: absolute;
+          top: -26px;
+          left: 50%;
+          transform: translateX(-50%);
+          touch-action: none;
+          display: none;
+          cursor: grab;
+          box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .toolbar {
+          position: absolute;
+          top: -34px;
+          right: 0;
+          display: none;
+          gap: 6px;
+          align-items: center;
+        }
+
+        .toolbar button {
+          border: none;
+          background: rgba(0,0,0,0.7);
+          color: white;
+          padding: 4px 6px;
+          border-radius: 4px;
+          font-size: 12px;
+          cursor: pointer;
+        }
+
+        .toolbar button.locked {
+          background: #b91c1c;
+        }
+
+        .box:not(.edit-mode):hover .resize-handle,
+        .box:not(.edit-mode):hover .rotate-handle,
+        .box:not(.edit-mode).selected .resize-handle,
+        .box:not(.edit-mode).selected .rotate-handle,
+        .box:not(.edit-mode).selected .toolbar {
+          display: block;
+        }
+
+        .box.locked {
+          cursor: default;
+        }
+
+        .box.locked .txt {
+            cursor: default;
+        }
+        
+        .controls-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .controls-group label, .controls-group span {
+            font-size: 13px;
+            color: #333;
+            white-space: nowrap;
+        }
+        
+        #bgColorPicker {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: transparent;
+            border: none;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            padding: 0;
+        }
+        #bgColorPicker::-webkit-color-swatch {
+            border-radius: 50%;
+            border: 1px solid #ccc;
+        }
+        #bgColorPicker::-moz-color-swatch {
+            border-radius: 50%;
+            border: 1px solid #ccc;
+        }
+
+        /* Luckysheet के लिए सही CSS */
+        .luckysheet-section {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            z-index: 1050; /* सुनिश्चित करें कि यह सभी के ऊपर है */
+            background-color: #fff; /* Luckysheet के नीचे का बैकग्राउंड */
+        }
+        #luckysheet-container {
+            flex-grow: 1; /* कंटेनर को पूरा स्पेस दें */
+        }
+
+        /* NEW: Textbox template styles */
+        .template-item {
+            width: 150px;
+            height: 100px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .template-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #007bff;
+        }
+
+        .template-item h6 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .template-item p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #555;
+        }
+        
+        
+
+/* NEW: Animated Backgrounds for Textbox Templates */
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse-effect {
+    0% { box-shadow: 0 0 5px rgba(0, 123, 255, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(0, 123, 255, 0.8); }
+    100% { box-shadow: 0 0 5px rgba(0, 123, 255, 0.4); }
+}
+
+/* Gradient Animation */
+.bg-animated-gradient {
+    background: linear-gradient(-45deg, #e0f7fa, #fce4ec, #f1f8e9, #fffde7);
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+}
+
+/* Subtle Pulse Animation */
+.bg-animated-pulse {
+    background-color: #e3f2fd;
+    animation: pulse-effect 2s infinite;
+}
+
+/* Subtle Texture Animation (example with a simple pattern) */
+.bg-animated-texture {
+    background-image: linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.2) 75%, rgba(255,255,255,0.2)), linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.2) 75%, rgba(255,255,255,0.2));
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    animation: texture-scroll 10s linear infinite;
+}
+
+@keyframes texture-scroll {
+    from { background-position: 0 0; }
+    to { background-position: 20px 20px; }
+}
+
+
+/* NEW: Multi-color Animated Background */
+@keyframes rainbow-shift {
+  0% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: hue-rotate(180deg);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: hue-rotate(360deg);
+  }
+}
+
+.bg-animated-rainbow {
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a1c4fd, #c2e9fb);
+  background-size: 400% 400%;
+  animation: rainbow-shift 12s ease infinite;
+  border-radius: 10px;
+  padding: 10px;
+  color: #333;
+  border: none;
+  outline: none;
+}
+/* 1) Fire Glow Effect */
+@keyframes fire-glow {
+  0% { background: radial-gradient(circle, #ff512f, #dd2476); }
+  50% { background: radial-gradient(circle, #ff9966, #ff5e62); }
+  100% { background: radial-gradient(circle, #ff512f, #dd2476); }
+}
+.bg-animated-fire {
+  animation: fire-glow 6s ease-in-out infinite;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+/* 2) Ocean Waves Effect */
+@keyframes ocean-wave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.bg-animated-ocean {
+  background: linear-gradient(270deg, #2193b0, #6dd5ed, #b2fefa);
+  background-size: 600% 600%;
+  animation: ocean-wave 10s ease infinite;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+/* 3) Aurora Lights Effect */
+@keyframes aurora {
+  0% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(180deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+.bg-animated-aurora {
+  background: linear-gradient(120deg, #00c6ff, #0072ff, #7f00ff, #e100ff);
+  background-size: 400% 400%;
+  animation: aurora 8s linear infinite, gradient-shift 15s ease infinite;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+/* 4) Cyber Neon Effect */
+@keyframes neon-pulse {
+  0% { box-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
+  50% { box-shadow: 0 0 20px #0ff, 0 0 40px #0ff; }
+  100% { box-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
+}
+.bg-animated-neon {
+  background: #000;
+  color: #0ff;
+  animation: neon-pulse 2s infinite;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #0ff;
+  outline: none;
+}
+/* 1) Soft Sunset */
+.bg-static-sunset {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #4A148C;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+/* 2) Cool Mint */
+.bg-static-mint {
+    background: linear-gradient(135deg, #a8ff78, #78ffd6);
+    color: #004d40;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+/* 3) Royal Blue */
+.bg-static-royal {
+    background: linear-gradient(135deg, #2193b0, #6dd5ed);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+/* 4) Elegant Purple */
+.bg-static-purple {
+    background: linear-gradient(135deg, #8e2de2, #4a00e0);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+
+/* Custom CSS to style Quill's font dropdown options */
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="sans-serif"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="sans-serif"]::before {
+  content: 'Sans Serif';
+  font-family: sans-serif; /* Default sans-serif font */
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="serif"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="serif"]::before {
+  content: 'Serif';
+  font-family: serif; /* Default serif font */
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="monospace"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="monospace"]::before {
+  content: 'Monospace';
+  font-family: monospace; /* Default monospace font */
+}
+
+/* Google Fonts ke liye custom styles */
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="montserrat"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="montserrat"]::before {
+  content: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="roboto"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="roboto"]::before {
+  content: 'Roboto';
+  font-family: 'Roboto', sans-serif;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="lato"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="lato"]::before {
+  content: 'Lato';
+  font-family: 'Lato', sans-serif;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="open-sans"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="open-sans"]::before {
+  content: 'Open Sans';
+  font-family: 'Open Sans', sans-serif;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="poppins"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="poppins"]::before {
+  content: 'Poppins';
+  font-family: 'Poppins', sans-serif;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="oswald"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="oswald"]::before {
+  content: 'Oswald';
+  font-family: 'Oswald', sans-serif;
+}
+
+
+
+
+
+

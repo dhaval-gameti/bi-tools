@@ -1,0 +1,104 @@
+/* कस्टम CSS नियम */
+        .chart-effect-template-item {
+            width: 150px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border: 2px solid transparent !important;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-effect-template-item:hover {
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+            transform: scale(1.02);
+        }
+
+        .chart-effect-template-item.selected {
+            border-color: #007bff !important;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* चार्ट प्रकार गैलरी के लिए नया CSS */
+        .chart-type-item {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 5px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-type-item img {
+            max-width: 60px;
+            height: auto;
+            margin-bottom: 5px;
+        }
+
+        .chart-type-item span {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .chart-type-item:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .chart-type-item.selected {
+            border-color: #007bff;
+            background-color: #eaf3ff;
+            transform: scale(1.05);
+            box-shadow: 0 8px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        
+        
+/* --- चार्ट इफ़ेक्ट के लिए नए स्टाइल --- */
+/* ग्लो इफ़ेक्ट */
+.chart-effect-glow {
+    filter: drop-shadow(0 0 8px rgba(108, 117, 125, 0.7));
+}
+body.dark-theme .chart-effect-glow {
+    filter: drop-shadow(0 0 8px rgba(248, 249, 250, 0.7));
+}
+
+/* शैडो इफ़ेक्ट */
+.chart-effect-shadow {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+body.dark-theme .chart-effect-shadow {
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+}
+
+/* पल्स इफ़ेक्ट (हॉवर पर) */
+.chart-effect-pulse:hover {
+    animation: pulse 1s infinite;
+}
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+/* हाइलाइट इफ़ेक्ट (हॉवर पर) */
+.chart-effect-highlight:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+body.dark-theme .chart-effect-highlight:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}

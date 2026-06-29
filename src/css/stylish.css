@@ -1,0 +1,118 @@
+/* यह कोड सुनिश्चित करता है कि डैशबोर्ड और एडिटर सही जगह पर रहें */
+#dashboardContainer {
+    position: relative; /* यह बहुत ज़रूरी है ताकि ओवरले इसके अंदर ही रहे */
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* अंदर के कंटेंट को बाहर जाने से रोकता है */
+}
+
+.main-content-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; /* स्क्रॉलिंग को सक्षम करता है */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* यह कैनवास एडिटर सेक्शन को डैशबोर्ड के ऊपर एक ओवरले बनाता है */
+#canvasEditorSection {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000; /* डैशबोर्ड कंटेंट से ऊपर */
+    display: none; /* शुरू में छिपा हुआ */
+    background-color: rgba(255, 255, 255, 0.8); /* हल्का पारदर्शी बैकग्राउंड */
+    backdrop-filter: blur(5px); /* पीछे के कंटेंट को धुंधला करता है (अगर ब्राउज़र सपोर्ट करता है) */
+    pointer-events: none; /* डिफ़ॉल्ट रूप से क्लिक को पार करता है */
+}
+
+#canvasEditorSection.active {
+    display: flex;
+}
+
+.control-panel {
+    /* ... बाकी कोड वैसा ही है ... */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100%;
+    z-index: 1001; /* ओवरले से ऊपर */
+    background-color: #fff;
+    pointer-events: auto; /* पैनल पर क्लिक की अनुमति देता है */
+    border-right: 1px solid #ddd;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.canvas-overlay {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right, #ccc 1px, transparent 1px),
+                      linear-gradient(to bottom, #ccc 1px, transparent 1px);
+    background-size: 10px 10px;
+    background-color: transparent;
+    pointer-events: auto; /* ओवरले पर ड्रैग-एंड-ड्रॉप को सक्षम करता है */
+}
+
+/* ड्रैग करने योग्य बॉक्स के लिए CSS */
+.box {
+    position: absolute;
+    pointer-events: auto; /* बॉक्स पर क्लिक और ड्रैग की अनुमति देता है */
+    user-select: none;
+    cursor: move;
+    z-index: 1002;
+}
+
+.topbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1001;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 8px;
+    pointer-events: auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.hint {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 5px;
+    z-index: 1001;
+    pointer-events: none;
+}
+
+.moveable-control-box {
+  border: 2px dashed blue;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+
+
+
+
+/* आपके मौजूदा CSS में जोड़ें */
+.selection-rect {
+    position: absolute;
+    background: rgba(26, 115, 232, 0.1); /* Light blue transparent background */
+    border: 2px solid #1a73e8; /* Google Sheets blue border */
+    pointer-events: none;
+    z-index: 10;
+}
+
+.data-table td.selected {
+    /* Selected cell background */
+    background-color: #e3f2fd !important; 
+}
+
+
+
+

@@ -1,0 +1,314 @@
+/* Body margin remove karein */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Title bar ko perfect top pe fix karein */
+.title-bar {
+    background-color: #f8f9fa;
+    padding: 12px 20px;
+    border-bottom: 1px solid #dee2e6;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    margin: 0; /* Margin remove */
+}
+
+/* Main menu bar ko title bar ke exactly niche */
+.main-menu-bar {
+    background-color: #f1f3f5;
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #e9ecef;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 53px; /* Title bar ki exact height - adjust karein */
+    z-index: 1010;
+    gap: 5px;
+    margin: 0; /* Margin remove */
+}
+
+/* Parent container check karein */
+.container-fluid, 
+.container {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Agar koi parent element extra padding de raha ho */
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.main-menu-bar .nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #495057;
+    text-decoration: none;
+    padding: 4px 8px;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    min-width: 60px;
+}
+
+.main-menu-bar .nav-link i {
+    font-size: 1.1rem !important;
+    margin-bottom: 2px;
+}
+
+.main-menu-bar .nav-link span {
+    font-size: 0.75rem !important;
+    line-height: 1.2;
+}
+
+.main-menu-bar .nav-link:hover {
+    color: #007bff;
+    background-color: #e9ecef;
+    transform: translateY(-1px);
+}
+
+/* Ultra Compact Small Menu Bar */
+.small-menu-bar {
+    background: #ffffff;
+    border-radius: 4px;
+    padding: 3px 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e2e8f0;
+    margin-bottom: 15px;
+    
+    /* Scroll lock के लिए */
+    position: sticky;
+    top: 120px; /* Title bar (53px) + Main menu bar (approx 67px) */
+    z-index: 1005;
+}
+
+.btn-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.small-menu-bar .btn {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    padding: 8px 10px !important;
+    color: #64748b !important;
+    transition: all 0.2s ease;
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hide button text completely */
+.small-menu-bar .btn .btn-text {
+    display: none !important;
+}
+
+/* Show only icons with smaller size */
+.small-menu-bar .btn i {
+    font-size: 1rem !important;
+    color: #64748b;
+    transition: all 0.2s ease;
+    display: block !important;
+    margin: 0 !important;
+}
+
+/* Compact hover effects */
+.small-menu-bar .btn:hover {
+    background: #f8fafc !important;
+    border-color: #cbd5e1 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.small-menu-bar .btn:hover i {
+    color: #475569;
+    transform: scale(1.05);
+}
+
+/* Tooltip for better UX */
+.small-menu-bar .btn {
+    position: relative;
+}
+
+.small-menu-bar .btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    z-index: 1000;
+}
+
+.small-menu-bar .btn:hover::after {
+    opacity: 1;
+    visibility: visible;
+    bottom: -30px;
+}
+
+/* Specific icon colors */
+#toggleTheme:hover i { color: #7e22ce !important; }
+#downloadTemplate:hover i { color: #0ea5e9 !important; }
+#editDataBtn:hover i { color: #eab308 !important; }
+#addDataBtn:hover i { color: #3b82f6 !important; }
+
+/* Responsive Design for mobile */
+@media (max-width: 768px) {
+    .title-bar {
+        padding: 10px 15px;
+        font-size: 18px;
+    }
+    
+    .main-menu-bar {
+        top: 50px;
+        padding: 6px 0;
+    }
+    
+    .main-menu-bar .nav-link {
+        padding: 3px 6px;
+        min-width: 50px;
+    }
+    
+    .main-menu-bar .nav-link i {
+        font-size: 1rem !important;
+    }
+    
+    .main-menu-bar .nav-link span {
+        font-size: 0.7rem !important;
+    }
+    
+    .small-menu-bar {
+        padding: 8px;
+    }
+    
+    .btn-group {
+        gap: 4px;
+    }
+    
+    .small-menu-bar .btn {
+        padding: 6px 8px !important;
+        min-width: 36px;
+        height: 36px;
+    }
+    
+    .small-menu-bar .btn i {
+        font-size: 0.9rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-menu-bar {
+        gap: 3px;
+    }
+    
+    .main-menu-bar .nav-link {
+        min-width: 45px;
+        padding: 2px 4px;
+    }
+    
+    .small-menu-bar .btn {
+        padding: 5px 6px !important;
+        min-width: 32px;
+        height: 32px;
+    }
+    
+    .small-menu-bar .btn i {
+        font-size: 0.85rem !important;
+    }
+}
+
+/* Loading overlay (unchanged) */
+#loadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    transition: opacity 0.6s ease;
+}
+
+.spinner {
+    width: 70px;
+    height: 70px;
+    border: 6px solid rgba(10, 255, 241, 0.2);
+    border-top: 6px solid #0AFFF1;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    box-shadow: 0 0 20px #0AFFF1, 0 0 40px #0AFFF1, 0 0 60px #0AFFF1;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loadingText {
+    font-size: 20px;
+    color: #0AFFF1;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 2px;
+    text-align: center;
+    text-shadow: 0 0 10px #0AFFF1, 0 0 20px #0AFFF1;
+    animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.5; }
+}
+
+@media (max-width: 480px) {
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border-width: 5px;
+    }
+    #loadingText {
+        font-size: 16px;
+    }
+}
+
+/* Modal specific styles */
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 3.5rem);
+}
+.modal-lg {
+    max-width: 500px;
+}
+.modal-content-area {
+    padding: 15px;
+}
+.modal-backdrop,
+.offcanvas-backdrop {
+    background-color: transparent !important;
+}
