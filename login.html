@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vedra BI Login</title>
+    <style>
+        /* Reset */
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Logo */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+            animation: logoDrop 0.8s ease-out;
+        }
+        .logo-container img {
+            width: 100px; height: 100px;
+            object-fit: contain;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
+            transform: perspective(500px) rotateX(10deg);
+            transition: transform 0.3s ease;
+        }
+        .logo-container img:hover {transform: perspective(500px) rotateX(0deg) scale(1.05);}
+        @keyframes logoDrop {from {opacity: 0; transform: translateY(-50px);} to {opacity: 1; transform: translateY(0);}}
+
+        /* Card */
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.6s ease-in-out;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        @keyframes fadeIn {from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);}}
+
+        .card-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 1px;
+            text-shadow: 1px 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .form-label {display: block; margin-bottom: 8px; font-weight: 600; color: #fff;}
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        .form-control::placeholder {color: rgba(255, 255, 255, 0.6);}
+        .form-control:focus {
+            outline: none;
+            border-color: #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .position-relative {position: relative;}
+        #togglePassword {
+            position: absolute;
+            top: 50%; right: 15px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+        #togglePassword:hover {color: #fff;}
+
+        .alert {
+            display: none;
+            padding: 10px;
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .d-grid {display: grid; gap: 14px; margin-top: 1.5rem;}
+
+        .btn {
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        .btn[disabled] {opacity: 0.7; cursor: not-allowed;}
+
+        .btn-primary {background: linear-gradient(135deg, #6a11cb, #2575fc); color: #ffffff;}
+        .btn-primary:hover:not([disabled]) {background: linear-gradient(135deg, #2575fc, #6a11cb); transform: translateY(-2px) scale(1.05);}
+        .btn-secondary {background-color: rgba(255, 255, 255, 0.3); color: #fff;}
+        .btn-secondary:hover:not([disabled]) {background-color: rgba(255, 255, 255, 0.5); transform: translateY(-2px) scale(1.05);}
+        .btn-link {background: none; color: #ffeb3b; text-decoration: underline; padding: 0; font-weight: bold;}
+        .btn-link:hover {text-decoration: none; color: #fff200;}
+
+        /* Spinner */
+        .spinner {
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid #fff;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 0.7s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        @keyframes spin {100% {transform: rotate(360deg);}}
+
+        @media (max-width: 480px) {
+            .card {padding: 25px;}
+            .card-title {font-size: 1.6rem;}
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Logo -->
+    <div class="logo-container">
+        <img src="images/logo.png" alt="Vedra BI Logo">
+    </div>
+
+    <!-- Login Card -->
+    <div class="card">
+        <h3 class="card-title">Vedra BI Login</h3>
+        
+        <div class="mb-3">
+            <label for="emailInput" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="emailInput" placeholder="अपना ईमेल लिखें">
+        </div>
+        <div class="mb-3 position-relative">
+            <label for="passwordInput" class="form-label">Password</label>
+            <input type="password" class="form-control" id="passwordInput" placeholder="अपना पासवर्ड लिखें">
+            <i class="bi bi-eye-slash" id="togglePassword"></i>
+        </div>
+
+        <!-- Error Message -->
+        <div id="loginError" class="alert"></div>
+        
+        <div class="d-grid gap-2">
+            <button type="button" class="btn btn-primary" id="loginBtn">Login</button>
+            <button type="button" class="btn btn-secondary" id="registerBtn">Register</button>
+            <button type="button" class="btn btn-link" id="googleLoginBtn"><i class="bi bi-google"></i> Google से Login</button>
+        </div>
+    </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <script>
+        const togglePassword = document.querySelector('#togglePassword');
+        const passwordInput = document.querySelector('#passwordInput');
+
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            togglePassword.classList.toggle('bi-eye');
+            togglePassword.classList.toggle('bi-eye-slash');
+        });
+    </script>
+    <script type="module" src="src/js/main.js"></script>
+</body>
+</html>

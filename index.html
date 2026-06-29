@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advance Visualizations tools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/css/pluginsCss.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/plugins.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/css/luckysheet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/assets/iconfont/iconfont.css" />
+    
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/lint/lint.min.css">
+    <link rel="stylesheet" href="src/css/dark_theam.css" />
+    <link rel="stylesheet" href="src/css/core.css" />
+    <link rel="stylesheet" href="src/css/editor_templates.css" />
+    
+    <link rel="stylesheet" href="src/css/ai_advice.css"/>
+    <link rel="stylesheet" href="src/css/all.css"/>
+    <link rel="stylesheet" href="src/css/small_menubarall.css"/>
+    <link rel="stylesheet" href="src/css/dataTebledisplay.css">
+    <link rel="stylesheet" href="src/css/editor_templates.css"/>
+</head>
+<body>
+    <div class="title-bar">
+        Advance Visualizations Tools
+    </div>
+
+    <nav class="main-menu-bar">
+        <a href="#" class="nav-link" id="menuData" data-bs-toggle="modal" data-bs-target="#mainMenuModal" data-menu-target="dataContent">
+            <i class="bi bi-file-earmark-arrow-up"></i>
+            <span>Data</span>
+        </a>
+        <a href="#" class="nav-link" id="menuCharts" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" data-menu-target="chartSettingsContent">
+            <i class="bi bi-bar-chart"></i>
+            <span>Chart</span>
+        </a>
+        <a href="#" class="nav-link" id="menuAdvancedSettings" data-bs-toggle="modal" data-bs-target="#mainMenuModal" data-menu-target="advancedSettingsContent">
+            <i class="bi bi-sliders"></i>
+            <span>Advance Settings</span>
+        </a>
+        <a href="#" class="nav-link" id="menuDataStatistics" data-bs-toggle="modal" data-bs-target="#mainMenuModal" data-menu-target="dataStatisticsContent">
+            <i class="bi bi-calculator"></i>
+            <span>डेटा सांख्यिकी</span>
+        </a>
+        <a href="#" class="nav-link" id="menuAdditionalActions" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" data-menu-target="additionalActionsContent">
+            <i class="bi bi-gear"></i>
+            <span>अतिरिक्त कार्य</span>
+        </a>
+        <a href="#" class="nav-link" id="menuFilterSort" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" data-menu-target="filterSortContent">
+            <i class="bi bi-filter"></i>
+            <span>फ़िल्टर एवं सॉर्ट</span>
+        </a>
+        <a href="#" class="nav-link" id="menuDashboardView" data-bs-toggle="modal" data-bs-target="#mainMenuModal" data-menu-target="dashboardViewContent">
+            <i class="bi bi-eye"></i>
+            <span>डैशबोर्ड व्यू</span>
+        </a>
+        <a href="#" class="nav-link" id="menuChartFormatting" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" data-menu-target="chartFormattingContent">
+            <i class="bi bi-brush"></i>
+            <span>चार्ट फॉर्मेटिंग</span>
+        </a>
+        <a href="#" class="nav-link" id="menuChartEffects" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" data-menu-target="chartEffectsContent">
+            <i class="bi bi-magic"></i>
+            <span>चार्ट इफ़ेक्ट</span>
+        </a>
+        <a href="#" class="nav-link" id="menuTextbox" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" data-menu-target="textboxContent">
+            <i class="bi bi-textarea-t"></i>
+            <span>टेक्स्टबॉक्स</span>
+        </a>
+        <a href="#" class="nav-link" id="menuUserInfo" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" data-menu-target="userInfoContent">
+            <i class="bi bi-person-circle"></i>
+            <span>प्रोफ़ाइल</span>
+        </a>
+    </nav>
+    
+    <nav class="small-menu-bar">
+        <div class="btn-group" role="group" aria-label="Small menu bar buttons">
+            <button id="toggleTheme" class="btn btn-secondary"><i class="bi bi-moon"></i> थीम बदलें</button>
+            <button id="downloadTemplate" class="btn btn-info"><i class="bi bi-download"></i> टेम्पलेट डाउनलोड करें</button>
+            <button id="editDataBtn" class="btn btn-warning" onclick="window.location.href='edit_data.html';">
+                <i class="bi bi-pencil-square"></i> डेटा एडिट करें (Excel जैसा)
+            </button>
+            <button id="addDataBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDataModal">
+                <i class="bi bi-plus-square"></i> नया डेटा जोड़ें
+            </button>
+        </div>
+    </nav>
+    
+    <div id="loadingOverlay">
+        <div class="spinner"></div>
+        <div id="loadingText">Loading vedra bi</div>
+    </div>    
+
+    <div id="dashboardContent">
+        <div class="offcanvas offcanvas-end bg-light" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasSidebarLabel">सेटिंग्स</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div id="chartSettingsContent" class="offcanvas-content" style="display: none;">
+                    <h5 class="mb-3"><i class="bi bi-bar-chart"></i> चार्ट सेटिंग्स</h5>
+                    <div id="chartSettingsSection">
+                        <div class="row gy-3 mb-4">
+                            <div class="col-md-12">
+                                <label class="form-label"><i class="bi bi-bar-chart"></i> चार्ट प्रकार चुनें:</label>
+                                <!div id="chartTypeGallery" class="d-flex flex-wrap justify-content-center gap-2">
+                                    <!/div>
+                                    <div id="chartTypeGallery" class="d-flex flex-wrap justify-content-center gap-2">
+</div>
+                            </div>
+                            <div class="col-md-12 mt-3 text-center">
+                                <img id="selectedChartDisplayImage" src="" alt="चयनित चार्ट" class="img-fluid" style="max-width: 300px; display: none;">
+                            </div>
+                            <select id="chartType" class="form-select d-none">
+                                <option value="bar">बार चार्ट</option>
+                                <option value="stacked-bar">स्टैक्ड बार</option>
+                                <option value="horizontal-bar">हॉरिजॉन्टल बार</option>
+                                <option value="grouped-bar">ग्रुप्ड बार</option>
+                                <option value="bar3D">3D बार चार्ट</option>
+                                <option value="line3D">3D line chart</option>
+                                <option value="line">लाइन चार्ट</option>
+                                <option value="stacked-line">स्टैक्ड लाइन</option>
+                                <option value="smooth-line">स्मूद लाइन</option>
+                                <option value="step-line">स्टेप लाइन</option>
+                                <option value="pie">पाई चार्ट</option>
+                                <option value="doughnut">डोनट चार्ट</option>
+                                <option value="rose-radius">रोज़ चार्ट (Radius)</option>
+                                <option value="rose-area">रोज़ चार्ट (Area)</option>
+                                <option value="scatter">स्कैटर चार्ट</option>
+                                <option value="bubble">बबल चार्ट</option>
+                                <option value="funnel">फ़नेल चार्ट</option>
+                                <option value="gauge">गेज चार्ट</option>
+                                <option value="radar">राडार चार्ट</option>
+                                <option value="treemap">ट्रीमैप चार्ट</option>
+                                <option value="candlestick">कैंडलस्टिक चार्ट (Plotly)</option>
+                                <option value="ohlc">OHLC चार्ट (Plotly)</option>
+                            </select>
+                            
+                            <div class="col-md-12 mt-3">
+                                <label class="form-label"><i class="bi bi-grip-horizontal"></i> सभी कॉलम (ड्रैग करें):</label>
+                                <div id="columnList" class="drag-container list-group mb-3">
+                                    </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <label class="form-label"><i class="bi bi-x-axis"></i> X-अक्ष (ड्रॉप करें):</label>
+                                <div id="xAxisDropZone" class="drop-zone drag-container list-group mb-3"></div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <label class="form-label"><i class="bi bi-y-axis"></i> Y-अक्ष (ड्रॉप करें):</label>
+                                <div id="yAxisDropZone" class="drop-zone drag-container list-group mb-3"></div>
+                            </div>
+                            <div class="col-md-12 mt-3" id="zAxisDropZoneContainer" style="display: none;">
+                                <label class="form-label"><i class="bi bi-arrow-up-right-dots"></i> Z-अक्ष (ड्रॉप करें):</label>
+                                <div id="zAxisDropZone" class="drop-zone drag-container list-group mb-3"></div>
+                            </div>
+
+                            <div class="col-md-12 mt-3">
+                                <label for="chartTitle" class="form-label"><i class="bi bi-type-h1"></i> चार्ट शीर्षक:</label>
+                                <input type="text" id="chartTitle" class="form-control" placeholder="शीर्षक दर्ज करें">
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <label for="xAxisLabel" class="form-label"><i class="bi bi-x-axis"></i> X-अक्ष लेबल (वैकल्पिक):</label>
+                                <input type="text" id="xAxisLabel" class="form-control" placeholder="X-अक्ष लेबल">
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <label for="yAxisLabel" class="form-label"><i class="bi bi-y-axis"></i> Y-अक्ष लेबल (वैकल्पिक):</label>
+                                <input type="text" id="yAxisLabel" class="form-control" placeholder="Y-अक्ष लेबल">
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <label for="colorPicker" class="form-label"><i class="bi bi-palette"></i> चार्ट रंग (एकल श्रृंखला):</label>
+                                <input type="color" id="colorPicker" class="form-control form-control-color" value="#5470C6">
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <button id="addVisualizationBtn" class="btn btn-primary w-100"><i class="bi bi-plus-circle"></i> विज़ुअलाइज़ेशन जोड़ें</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="additionalActionsContent" class="offcanvas-content" style="display: none;">
+                    <h5 class="mb-3"><i class="bi bi-gear"></i> अतिरिक्त कार्य</h5>
+                    <div id="additionalActions">
+                        <div class="row gy-3 mb-4">
+                            <div class="col-md-12">
+                                <!button id="toggleTheme" class="btn btn-secondary w-100"><!i class="bi bi-moon"><!/i> थीम बदलें<!/button>
+                            </div>
+                            <div class="col-md-12">
+                                <button id="downloadTemplate" class="btn btn-info w-100"><i class="bi bi-download"></i> टेम्पलेट डाउनलोड करें</button>
+                            </div>
+                            <div class="col-md-12">
+                                <button id="editDataBtn" class="btn btn-warning w-100" onclick="window.location.href='edit_data.html';">
+                                    <i class="bi bi-pencil-square"></i> डेटा एडिट करें (Excel जैसा)
+                                </button>
+                            </div>
+                            <div class="col-md-12">
+                                <button id="addDataBtn" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#addDataModal"><i class="bi bi-plus-square"></i> नया डेटा जोड़ें</button>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <label class="form-label"><i class="bi bi-palette-fill"></i> बैकग्राउंड टेम्पलेट्स चुनें:</label>
+                                <div id="backgroundTemplateGallery" class="d-flex flex-wrap justify-content-center gap-3 mt-2">
+                                    </div>
+                                <div class="text-center mt-3">
+                                    <button id="applyTemplateBtn" class="btn btn-success w-100"><i class="bi bi-check-circle"></i> टेम्पलेट लागू करें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        
+ <div id="filterSortContent" class="offcanvas-content" style="display: none;">
+                    <h5 class="mb-3"><i class="bi bi-filter"></i> फ़िल्टर एवं सॉर्ट</h5>
+                    <div id="filterSortSection">
+                        <div class="row gy-3 mb-4">
+                            <div class="col-md-12">
+                                <label for="filterCol"><i class="bi bi-funnel"></i> टेक्स्ट कॉलम फ़िल्टर:</label>
+                                <select id="filterCol" class="form-select"></select>
+                                <select id="textFilterOperator" class="form-select mt-2">
+                                    <option value="includes">शामिल है</option>
+                                    <option value="startsWith">से शुरू होता है</option>
+                                    <option value="endsWith">से खत्म होता है</option>
+                                    <option value="equals">के बराबर है</option>
+                                    <option value="doesNotInclude">शामिल नहीं है</option>
+                                </select>
+                                <input type="text" id="filterValue" class="form-control mt-2" placeholder="मान दर्ज करें">
+                            </div>
+
+                            <div class="col-md-12 mt-3">
+                                <label for="multiSelectFilterCol"><i class="bi bi-list-check"></i> बहु-चयन फ़िल्टर:</label>
+                                <select id="multiSelectFilterCol" class="form-select"></select>
+                                <div id="multiSelectOptions" class="mt-2" style="max-height: 150px; overflow-y: auto;">
+                                    </div>
+                            </div>
+
+                            <div class="col-md-12 mt-3">
+                                <label for="filterNumericCol"><i class="bi bi-graph-up-arrow"></i> संख्यात्मक रेंज फ़िल्टर:</label>
+                                <select id="filterNumericCol" class="form-select"></select>
+                                <div class="input-group mt-2">
+                                    <span class="input-group-text">न्यूनतम</span>
+                                    <input type="number" id="minNumericValue" class="form-control" placeholder="न्यूनतम मान">
+                                </div>
+                                <div class="input-group mt-2">
+                                    <span class="input-group-text">अधिकतम</span>
+                                    <input type="number" id="maxNumericValue" class="form-control" placeholder="अधिकतम मान">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <label for="startDate"><i class="bi bi-calendar"></i> तारीख रेंज:</label>
+                                <input type="date" id="startDate" class="form-control mb-2">
+                                <input type="date" id="endDate" class="form-control">
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="groupByCols"><i class="bi bi-list-ul"></i> ग्रुप बाय:</label>
+                                <select id="groupByCols" multiple class="form-select" style="height:100px;"></select>
+                            </div>
+
+                            <div class="col-md-12 mt-4">
+                                <label><i class="bi bi-sort-down-alt"></i> बहु-कॉलम सॉर्ट:</label>
+                                <div id="sortRulesContainer">
+                                    </div>
+                                <button id="addSortRuleBtn" class="btn btn-secondary w-100 mt-2"><i class="bi bi-plus"></i> एक और सॉर्ट नियम जोड़ें</button>
+                            </div>
+
+                            <div class="col-md-12 mt-4">
+                                <label><i class="bi bi-box-seam"></i> फ़िल्टर प्रीसेट:</label>
+                                <div class="input-group">
+                                    <input type="text" id="presetName" class="form-control" placeholder="प्रीसेट नाम">
+                                    <button id="savePresetBtn" class="btn btn-success"><i class="bi bi-save"></i></button>
+                                </div>
+                                <select id="loadPreset" class="form-select mt-2">
+                                    <option value="">प्रीसेट चुनें</option>
+                                    </select>
+                                <button id="applyPresetBtn" class="btn btn-primary mt-2 w-100"><i class="bi bi-check-circle"></i> प्रीसेट लागू करें</button>
+                            </div>
+                        </div>
+<div class="row mb-3">
+    <div class="col-12">
+        <button type="button" id="resetFiltersBtn" class="btn btn-warning">
+            <i class="bi bi-arrow-clockwise"></i> सभी फ़िल्टर्स रीसेट करें
+        </button>
+    </div>
+</div>
+                        <button id="applyFilterSort" class="btn btn-secondary mt-3 w-100"><i class="bi bi-check-circle"></i> फ़िल्टर और सॉर्ट लागू करें</button>
+                    </div>
+                </div>
+
+ 
+                <div id="chartFormattingContent" class="offcanvas-content" style="display: none;">
+                    <h5 class="mb-3"><i class="bi bi-brush"></i> चार्ट फॉर्मेटिंग</h5>
+                    <div id="chartFormattingSection">
+                        <div class="mb-3">
+                            <label class="form-label"><i class="bi bi-palette"></i> चार्ट कंटेनर रंग टेम्पलेट्स चुनें:</label>
+                            <div id="chartContainerColorGallery" class="d-flex flex-wrap justify-content-center gap-3 mt-2">
+                                </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <div class="mb-3">
+                                <label class="form-label"><i class="bi bi-paint-bucket"></i> कलर स्कोप चुनें:</label>
+                                <div class="btn-group w-100" role="group">
+                                    <input type="radio" class="btn-check" name="chartContainerScope" id="scopeAllCharts" autocomplete="off" checked>
+                                    <label class="btn btn-outline-primary" for="scopeAllCharts">सभी चार्ट्स पर</label>
+                                    <input type="radio" class="btn-check" name="chartContainerScope" id="scopeSelectedCharts" autocomplete="off">
+                                    <label class="btn btn-outline-primary" for="scopeSelectedCharts">चयनित चार्ट्स पर</label>
+                                </div>
+                            </div>
+                            <div id="dashboardChartOverview" style="display: none;">
+                                <label class="form-label"><i class="bi bi-list-check"></i> चार्ट चुनें:</label>
+                                <div id="chartSelectionList" class="form-control" style="max-height: 200px; overflow-y: auto;">
+                                    </div>
+                            </div>
+                            <button id="applyChartContainerColorBtn" class="btn btn-success w-100 mt-3"><i class="bi bi-check-circle"></i> कंटेनर रंग लागू करें</button>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <hr>
+                            <h6>कस्टम रंग और शैली</h6>
+                            <p class="text-muted small">यहाँ JSON फॉर्मेट में कोड डालें।</p>
+                            <div class="input-group">
+                                <textarea id="customChartContainerCode" class="form-control" rows="12" placeholder="उदाहरण: { 'style': { 'background': '#ff5733', 'color': '#ffffff' }, 'chartBackgroundColor': '#ff5733' }"></textarea>
+                                <button class="btn btn-outline-secondary" type="button" id="openChartFormatEditorBtn" data-bs-toggle="modal" data-bs-target="#codeEditorModal"><i class="bi bi-arrows-fullscreen"></i></button>
+                            </div>
+                            <button id="applyCustomChartContainerCodeBtn" class="btn btn-primary w-100 mt-2"><i class="bi bi-code"></i> कस्टम शैली लागू करें</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="chartEffectsContent" class="offcanvas-content" style="display: none;">    
+    <h5 class="mb-3"><i class="bi bi-magic"></i> चार्ट इफेक्ट्स</h5>    
+    <div id="chartEffectsSection">    
+        <div class="mb-3">    
+            <label class="form-label">चार्ट इफ़ेक्ट्स</label>    
+            <div class="btn-group w-100" role="group" aria-label="इफ़ेक्ट्स विकल्प">    
+                <input type="radio" class="btn-check" name="effectsOption" id="customEffectsRadio" autocomplete="off" checked>    
+                <label class="btn btn-outline-primary" for="customEffectsRadio">कस्टम इफ़ेक्ट्स</label>    
+                <input type="radio" class="btn-check" name="effectsOption" id="templateEffectsRadio" autocomplete="off">    
+                <label class="btn btn-outline-primary" for="templateEffectsRadio">रेडीमेड टेम्पलेट्स</label>    
+                <input type="radio" class="btn-check" name="effectsOption" id="customCodeRadio" autocomplete="off">    
+                <label class="btn btn-outline-primary" for="customCodeRadio">कस्टम कोड</label>    
+            </div>    
+        </div>    
+
+        <div id="customEffectsSection">    
+            <div class="row">    
+                <div class="col-md-6 mb-3">    
+                    <label for="shadowColor" class="form-label">शैडो रंग</label>    
+                    <div id="shadowColorPicker"></div>
+                </div>    
+                <div class="col-md-6 mb-3">    
+                    <label for="shadowBlur" class="form-label">शैडो ब्लर</label>    
+                    <input type="number" class="form-control" id="shadowBlur" value="10" min="0" max="50">    
+                </div>    
+                <div class="col-md-6 mb-3">    
+                    <label for="shadowOffsetX" class="form-label">शैडो ऑफसेट X</label>    
+                    <input type="number" class="form-control" id="shadowOffsetX" value="0" min="-50" max="50">    
+                </div>    
+                <div class="col-md-6 mb-3">    
+                    <label for="shadowOffsetY" class="form-label">शैडो ऑफसेट Y</label>    
+                    <input type="number" class="form-control" id="shadowOffsetY" value="0" min="-50" max="50">    
+                </div>    
+                <div class="col-md-6 mb-3">    
+                    <label for="backgroundColor" class="form-label">बैकग्राउंड रंग</label>    
+                    <div id="backgroundColorPicker"></div>
+                </div>    
+                <div class="col-md-6 mb-3">    
+                    <label for="borderColor" class="form-label">बॉर्डर रंग</label>    
+                    <div id="borderColorPicker"></div>
+                </div>    
+                <div class="col-md-6 mb-3">    
+                    <label for="borderWidth" class="form-label">बॉर्डर चौड़ाई</label>    
+                    <input type="number" class="form-control" id="borderWidth" value="0" min="0" max="10">    
+                </div>    
+            </div>    
+        </div>    
+
+        <div id="templateEffectsSection" style="display: none;">    
+            <div id="chartEffectsTemplateGallery" class="d-flex flex-wrap gap-2 justify-content-center mt-3"></div>    
+        </div>    
+
+        <div id="customCodeEffectsSection" style="display: none;">    
+            <p class="text-muted small">यहाँ JSON फॉर्मेट में इफ़ेक्ट कोड डालें।</p>    
+            <div class="input-group">    
+                <textarea id="customEffectCode" class="form-control" rows="12" placeholder="उदाहरण: { &quot;shadowColor&quot;: &quot;rgba(255, 99, 132, 0.4)&quot;, ... }"></textarea>    
+                <button class="btn btn-outline-secondary" type="button" id="openChartEffectEditorBtn" data-bs-toggle="modal" data-bs-target="#codeEditorModal"><i class="bi bi-arrows-fullscreen"></i></button>    
+            </div>    
+            <div class="alert alert-danger mt-2" id="codeErrorAlert" style="display: none;"></div>    
+        </div>    
+
+        <div class="mb-3 mt-3">    
+            <label class="form-label">इफ़ेक्ट लागू करें:</label>    
+            <div class="btn-group w-100" role="group" aria-label="इफ़ेक्ट स्कोप">    
+                <input type="radio" class="btn-check" name="effectScope" id="applyToAllRadio" autocomplete="off" checked>    
+                <label class="btn btn-outline-secondary" for="applyToAllRadio">सभी चार्ट पर</label>    
+                <input type="radio" class="btn-check" name="effectScope" id="applyToSelectedRadio" autocomplete="off">    
+                <label class="btn btn-outline-secondary" for="applyToSelectedRadio">चयनित चार्ट पर</label>    
+            </div>    
+        </div>    
+        <div id="dashboardChartOverviewEffects" style="display: none;">    
+            <label class="form-label"><i class="bi bi-list-check"></i> चार्ट चुनें:</label>    
+            <div id="chartSelectionListEffects" class="form-control" style="max-height: 200px; overflow-y: auto;"></div>    
+        </div>    
+        <button id="applyChartEffects" class="btn btn-primary mt-3 w-100"><i class="bi bi-check-circle"></i> इफेक्ट्स लागू करें</button>    
+    </div>    
+</div>    
+
+
+               
+                <div id="textboxContent" class="offcanvas-content" style="display: none;">
+                    <h5 class="mb-3"><i class="bi bi-textarea-t"></i> टेक्स्टबॉक्स सेटिंग्स</h5>
+                    <div class="control-panel p-0">
+                        <h6>टेक्स्टबॉक्स ओवरव्यू</h6>
+                        <div id="textboxList" class="list-group mb-3" style="max-height: 200px; overflow-y: auto;">
+                            </div>
+
+                        <div id="textboxPreview" class="box-preview">
+                            <div class="ql-editor"></div>
+                        </div>
+                        <hr>
+                        <h6>एडिटर</h6>
+                        <div class="controls-group">
+                            <div class="d-flex align-items-center mb-3">
+                                <div>
+                                    <label for="bgColorPicker" class="form-label mb-0">Background Color</label>
+                                    <input type="color" class="form-control form-control-color" id="bgColorPicker" value="#ffffff" title="Background Color">
+                                </div>
+                                
+                                <button id="dataInsertButton" type="button" class="btn btn-outline-primary ms-3" title="Insert Live Data Field">
+                                    <i class="bi bi-database-fill me-1"></i> Data Insert
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="quill-container" style="height: 300px;"></div>
+                        <button id="mainActionButton" class="btn btn-primary w-100"><i class="bi bi-plus-square"></i>Create a new texbox</button>
+                    </div>
+                    <hr>
+                    <h6>Ready Made Templates</h6>
+                    <p class="text-muted small">एक टेम्पलेट पर क्लिक करें और उसे अपने डैशबोर्ड में जोड़ें।</p>
+                    <div id="templateGallery" class="d-flex flex-wrap gap-2 justify-content-center">
+                        </div>
+                </div>
+
+                <div id="userInfoContent" class="offcanvas-content" style="display: none;">
+                    <h5 class="mb-3"><i class="bi bi-person-circle"></i> Profile</h5>
+                    <div id="userInfo" class="alert alert-success d-flex align-items-center" style="display: none;">
+                        <i class="bi bi-person-circle me-2"></i>
+                        <span id="userEmail"></span>
+                        <button id="logoutBtn" class="btn btn-danger btn-sm ms-auto"><i class="bi bi-box-arrow-right"></i> Log out</button>
+                    </div>
+                    <p class="text-muted mt-3">अपनी प्रोफ़ाइल जानकारी यहां देखें।</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container-fluid main-content-container py-4 flex-grow-1">
+            <div id="dashboardSection" class="content-section active">
+                <div id="visualizationsSection" class="section-card">
+                    <h3 class="mt-4"><i class="bi bi-bar-chart-line"></i> Visualizations</h3>
+                    <div id="visualizations" class="position-relative" style="min-height: 500px; border: 1px dashed #ccc; padding: 10px;">
+                        <div class="no-charts-message text-muted text-center p-4">
+                            <p><i class="bi bi-info-circle"></i> कोई चार्ट उपलब्ध नहीं है।</p>
+                            <p>सेटिंग्स से 'चार्ट' में जाकर चार्ट जोड़ें।</p>
+                        </div>
+                        </div>
+                </div>
+                <hr>
+                <!div id="dataTableSection" class="section-card">
+                   
+                    <!div class="table-responsive" style="max-height:400px; overflow:auto;">
+                        <div id="dataTableContainer">
+                            </div>
+                    </div>
+                
+
+                <hr>
+                <div id="summaryOutputSection" class="section-card">
+                    <h3><i class="bi bi-lightbulb"></i> AI सारांश</h3>
+                    <div class="alert alert-info mt-3" id="summaryOutput">
+                        <p><strong>AI सारांश:</strong></p>
+                        <div id="summaryText">
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="dataInsertSidebar" aria-labelledby="dataInsertSidebarLabel" style="width: 450px; z-index: 1055;">
+        <div class="offcanvas-header bg-primary text-white">
+            <h5 class="offcanvas-title" id="dataInsertSidebarLabel"><i class="bi bi-database-fill me-2"></i> Live Data Insertion</h5>
+            <button type="button" class="btn-close btn-close-white" id="closeDataSidebarBtn" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column">
+            <p class="text-muted small">टेक्स्टबॉक्स में डालने के लिए विशिष्ट **डेटा पंक्तियों (Data Rows)** का चयन करें। (फ़िल्टर्ड डेटा की पहली 50 पंक्तियाँ दिखा रहा है)</p>
+            
+            <div id="dataListContainer" class="flex-grow-1 overflow-auto p-2 border rounded mb-3 bg-light" style="max-height: 80%;">
+                <p class="text-center text-muted p-5">डेटा लोड हो रहा है...</p>
+            </div>
+
+            <button id="insertSelectedDataBtn" class="btn btn-success w-100 mt-auto">
+                <i class="bi bi-box-arrow-in-down me-2"></i> चयनित डेटा पंक्तियाँ इन्सर्ट करें
+            </button>
+        </div>
+    </div>
+    <div id="luckysheetSection" class="luckysheet-section" style="display: none;">
+        <div id="luckysheet-container"></div>
+        <div class="d-flex justify-content-end p-2 border-top bg-light">
+            <button id="saveLuckysheetData" class="btn btn-success me-2"><i class="bi bi-save"></i> डेटा सेव करें</button>
+            <button id="closeLuckysheet" class="btn btn-secondary"><i class="bi bi-x-circle"></i> बंद करें</button>
+        </div>
+    </div>
+
+    <div id="chatPopup" class="chat-popup">
+        <div class="chat-popup-header">
+            <span><i class="bi bi-chat-dots"></i> AI चैट असिस्टेंट</span>
+            <div class="header-controls">
+                <button id="clearChatBtn" class="btn btn-sm btn-outline-secondary me-2" title="चैट इतिहास साफ़ करें">
+                    <i class="bi bi-trash"></i> साफ़ करें
+                </button>
+                <button id="closeChatBtn" class="close-btn" title="बंद करें">&times;</button>
+            </div>
+        </div>
+        <div class="chat-popup-body">
+            <div id="chatHistory" class="chat-history mb-3">
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <strong>स्वागत है! 👋</strong> मैं आपकी डेटा विश्लेषण में सहायता करने के लिए यहाँ हूँ। आप डेटा के बारे में कोई भी प्रश्न पूछ सकते हैं।
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                </div>
+        </div>
+        <div class="chat-popup-footer">
+            <div class="input-group">
+                <textarea id="chatInput" class="form-control" placeholder="अपना प्रश्न पूछें... " rows="1"></textarea>
+                <button id="sendChatBtn" class="btn btn-primary">
+                    <i class="bi bi-send"></i> भेजें
+                </button>
+            </div>
+            <div class="chat-footer-info">
+                <small class="text-muted">
+                    <i class="bi bi-info-circle"></i> चैट मोड में AI आपके अपलोड किए गए डेटा और पिछले संवादों के आधार पर जवाब देगा।
+                </small>
+                <small class="text-muted d-block mt-1">
+                    संदेश: <span id="charCount">0</span>/1000
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="codeEditorModal" tabindex="-1" aria-labelledby="codeEditorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="codeEditorModalLabel">Castom Code editor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-dark text-white p-0">
+                    <div id="editorContainer" style="height: 100%; width: 100%;">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="saveCodeBtn"><i class="bi bi-save"></i> कोड सहेजें</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addDataModal" tabindex="-1" aria-labelledby="addDataModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDataModalLabel"><i class="bi bi-plus-square"></i> नया डेटा जोड़ें</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="addDataForm">
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="saveData"><i class="bi bi-save"></i> सहेजें</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="mainMenuModal" tabindex="-1" aria-labelledby="mainMenuModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mainMenuModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="dataContent" class="modal-content-area" style="display: none;">
+                        <h5 class="modal-title" id="dataModalLabel"><i class="bi bi-file-earmark-arrow-up"></i> डेटा अपलोड करें</h5>
+                        <div class="row gy-3 mb-4">
+                            <div class="col-md-12">
+                                <label for="fileInput"><i class="bi bi-file-earmark"></i> फ़ाइल (CSV/Excel):</label>
+                                <input type="file" id="fileInput" class="form-control" accept=".csv, .xlsx, .xls">
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <h6 class="mb-3">लाइव डेटा अपलोड</h6>
+                                <div class="mb-3">
+                                    <label for="apiInput" class="form-label">API URL</label>
+                                    <input type="url" class="form-control" id="apiInput" placeholder="https://api.example.com/data">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="updateInterval" class="form-label">अपडेट इंटरवल (सेकंड में)</label>
+                                    <input type="number" class="form-control" id="updateInterval" value="60">
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button id="fetchDataFromApiBtn" class="btn btn-primary"><i class="bi bi-play-circle"></i> लाइव डेटा शुरू करें</button>
+                                    <button id="stopLiveUpdateBtn" class="btn btn-danger"><i class="bi bi-stop-circle"></i> अपडेट रोकें</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="advancedSettingsContent" class="modal-content-area" style="display: none;">
+                        <h5 class="mb-3"><i class="bi bi-sliders"></i> एडवांस्ड चार्ट सेटिंग्स</h5>
+                        <div id="advancedChartSettings">
+                            <div class="mb-3 form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="gridShowHide" checked>
+                                <label class="form-check-label" for="gridShowHide">ग्रिड दिखाएँ/छिपाएँ</label>
+                            </div>
+                            <div class="mb-3 form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="tooltipOnOff" checked>
+                                <label class="form-check-label" for="tooltipOnOff">टूलटिप चालू/बंद</label>
+                            </div>
+                            <div class="mb-3 form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="zoomEnable">
+                                <label class="form-check-label" for="zoomEnable">ज़ूम सक्षम करें</label>
+                            </div>
+                            <div class="mb-3">
+                                <label for="animationDuration" class="form-label">एनीमेशन अवधि (मिलीसेकंड): <span id="animationDurationValue">1000</span></label>
+                                <input type="range" class="form-range" id="animationDuration" min="0" max="3000" value="1000" step="100">
+                            </div>
+                            <div class="mb-3">
+                                <label for="axisFormat" class="form-label">एक्सिस फॉर्मेट:</label>
+                                <select class="form-select" id="axisFormat">
+                                    <option value="none">कोई नहीं</option>
+                                    <option value="compact">कॉम्पैक्ट (जैसे 1K, 1M)</option>
+                                    <option value="currency">करेंसी (जैसे ₹1,000)</option>
+                                    <option value="percent">प्रतिशत (जैसे 10%)</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="legendPosition" class="form-label">लेजेंड पोजीशन:</label>
+                                <select class="form-select" id="legendPosition">
+                                    <option value="bottom">नीचे</option>
+                                    <option value="top">ऊपर</option>
+                                    <option value="left">बाएं</option>
+                                    <option value="right">दाएं</option>
+                                    <option value="none">कोई नहीं</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="showLabels" checked>
+                                <label class="form-check-label" for="showLabels">लेबल दिखाएँ</label>
+                            </div>
+                            <div class="mb-3">
+                                <button id="applyChartSettings" class="btn btn-primary w-100"><i class="bi bi-check-circle"></i> सेटिंग्स लागू करें</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="dataStatisticsContent" class="modal-content-area" style="display: none;">
+                        <h5 class="mb-3"><i class="bi bi-calculator"></i> डेटा सांख्यिकी</h5>
+                        <div id="statsSection">
+                            <select id="statsCol" class="form-select mb-2 w-100">
+                                <option value="">कॉलम चुनें</option>
+                                </select>
+                            <div id="statsOutput">
+                                </div>
+                        </div>
+                    </div>
+
+                    <div id="dashboardViewContent" class="modal-content-area" style="display: none;">
+                        <h5 class="mb-3"><i class="bi bi-eye"></i> डैशबोर्ड दृश्य</h5>
+                        <div id="dashboardViewSection">
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="toggleVisualizations" checked>
+                                    <label class="form-check-label" for="toggleVisualizations">
+                                        विज़ुअलाइज़ेशन दिखाएं
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="toggleDataTable" checked>
+                                    <label class="form-check-label" for="toggleDataTable">
+                                        डेटा टेबल दिखाएं
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="toggleSummary" checked>
+                                    <label class="form-check-label" for="toggleSummary">
+                                        AI सारांश दिखाएं
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="toggleChat" checked>
+                                    <label class="form-check-label" for="toggleChat">
+                                        AI चैट दिखाएं
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <button id="downloadFullDashboard" class="btn btn-dark w-100"><i class="bi bi-file-earmark-arrow-down"></i> पूरा डैशबोर्ड डाउनलोड करें</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="ai-advice-overlay"></div>
+    <div class="ai-advice-container">
+        <button id="closeAiAdviceBtn">&times;</button>
+        <div id="aiAdviceContent">
+            </div>
+    </div>
+
+    <button id="toggleLockModeBtn" class="btn btn-outline-secondary">
+        <i class="bi bi-lock-fill"></i> Desbord Lock
+    </button>
+    <div id="openChatBtn" class="floating-chat-button">
+        <i class="bi bi-chat-dots-fill"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/js/plugin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/luckysheet.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPDF/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moveable/dist/moveable.min.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/lint/lint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonlint/1.6.0/jsonlint.min.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script src="src/js/chatbot_Listener.js"></script>
+    <script> </script>
+    <script type="module" src="src/js/main.js"></script>
+    
+   
+<!-- Pickr CSS + JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+<script>
+
+  const pickrOptions = (elId, defaultColor) => Pickr.create({
+    el: '#' + elId,
+    theme: 'classic',
+    default: defaultColor,
+    components: {
+      preview: true,
+      opacity: true,
+      hue: true,
+      interaction: { input: true, save: true }
+    }
+  });
+
+  const shadowPickr = pickrOptions('shadowColorPicker', '#000000');
+  const bgPickr = pickrOptions('backgroundColorPicker', '#ffffff');
+  const borderPickr = pickrOptions('borderColorPicker', '#CCCCCC');
+
+  const bindPickr = (pickrInstance, inputId) => {
+    pickrInstance.on('save', (color, instance) => {
+      document.getElementById(inputId).value = color.toHEXA().toString();
+      instance.hide();
+    });
+    pickrInstance.on('change', (color) => {
+      document.getElementById(inputId).value = color.toHEXA().toString();
+    });
+  };
+
+  // Hidden inputs to store values
+  ['shadowColor', 'backgroundColor', 'borderColor'].forEach(id => {
+    if(!document.getElementById(id)){
+      const inp = document.createElement('input');
+      inp.type='hidden';
+      inp.id=id;
+      document.getElementById('customEffectsSection').appendChild(inp);
+    }
+  });
+
+  bindPickr(shadowPickr, 'shadowColor');
+  bindPickr(bgPickr, 'backgroundColor');
+  bindPickr(borderPickr, 'borderColor');
+</script>
+</body>
+</html>

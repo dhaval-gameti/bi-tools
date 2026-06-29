@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vedra BI Sheet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    
+    
+    <!-- Luckysheet CSS from Forked Repo -->
+    <link rel='stylesheet' href='https://dhaval-gamet.github.io/Luckysheet/dist/plugins/css/pluginsCss.css' />
+    <link rel='stylesheet' href='https://dhaval-gamet.github.io/Luckysheet/dist/plugins/plugins.css' />
+    <link rel='stylesheet' href='https://dhaval-gamet.github.io/Luckysheet/dist/css/luckysheet.css' />
+    <link rel='stylesheet' href='https://dhaval-gamet.github.io/Luckysheet/dist/assets/iconfont/iconfont.css' />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            touch-action: manipulation;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        #luckysheet-container {
+            width: 100%;
+            height: calc(100vh - 60px);
+            position: fixed;
+            top: 60px;
+            left: 0;
+        }
+        #control-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #f8f9fa;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 15px;
+            z-index: 999;
+        }
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            color: #333;
+            z-index: 1000;
+        }
+        .btn {
+            font-size: 1rem;
+            padding: 10px 20px;
+            font-weight: bold;
+        }
+        .btn i {
+            margin-right: 5px;
+        }
+
+        /* Luckysheet के डिफ़ॉल्ट लोगो को छुपाएं */
+        #luckysheet-info-logo {
+            display: none !important;
+        }
+        /* कस्टम लोगो और टाइटल के लिए स्टाइल */
+        #custom-header {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        #custom-logo {
+            height: 40px; /* लोगो की ऊँचाई आप अपनी पसंद के अनुसार बदल सकते हैं */
+            margin-right: 10px;
+        }
+        #custom-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-overlay">डेटा लोड हो रहा है...</div>
+    <div id="control-panel">
+        <div id="custom-header">
+            <span id="custom-title">vedra BI</span>
+        </div>
+        <button id="saveDataBtn" class="btn btn-primary"><i class="bi bi-save"></i> डेटा सेव करें</button>
+        <button id="backBtn" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> डैशबोर्ड पर वापस जाएं</button>
+    </div>
+    <div id="luckysheet-container"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+
+    <!-- Luckysheet JS from Forked Repo -->
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/plugins/js/plugin.js"></script>
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/luckysheet.umd.js"></script>
+    
+    <!-- Demo Data -->
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/demoData/demoFeature.js"></script>
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/demoData/sheetFormula.js"></script>
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/demoData/sheetCell.js"></script>
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/demoData/sheetConditionFormat.js"></script>
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/demoData/sheetTable.js"></script>
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/demoData/sheetComment.js"></script>
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/demoData/sheetPivotTableData.js"></script>
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/demoData/sheetPivotTable.js"></script>
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/demoData/sheetSparkline.js"></script>
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/demoData/sheetChart.js"></script>
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/demoData/sheetPicture.js"></script>
+    <script src="https://dhaval-gamet.github.io/Luckysheet/dist/demoData/sheetDataVerification.js"></script>
+
+
+    <script type="module">
+        import { auth, db } from '../src/js/utils.js';
+
+        async function loadDataForLuckysheet() {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const user = auth.currentUser;
+
+            if (!user) {
+                alert("डेटा एडिट करने के लिए कृपया लॉगिन करें।");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            loadingOverlay.style.display = 'flex';
+            try {
+                const doc = await db.collection('users').doc(user.uid).get();
+                let luckyData = [{ celldata: [], name: 'Sheet1', row: 100, column: 20 }];
+                let headers = [];
+                let rawDataObjects = [];
+
+                if (doc.exists) {
+                    const userData = doc.data();
+                    rawDataObjects = userData.data || [];
+                    headers = userData.headers || [];
+                }
+
+                if (headers.length > 0 && rawDataObjects.length > 0) {
+                    const celldata = [];
+                    // Headers को celldata में बदलें
+                    headers.forEach((header, cIndex) => {
+                        celldata.push({ r: 0, c: cIndex, v: header });
+                    });
+                    // Data rows को celldata में बदलें
+                    rawDataObjects.forEach((rowObject, rIndex) => {
+                        headers.forEach((header, cIndex) => {
+                            const value = rowObject[header];
+                            if (value !== null && value !== undefined) {
+                                celldata.push({ r: rIndex + 1, c: cIndex, v: value });
+                            }
+                        });
+                    });
+                    luckyData = [{
+                        celldata: celldata,
+                        name: 'Sheet1',
+                        row: rawDataObjects.length + 500,
+                        column: headers.length + 100,
+                    }];
+                }
+
+                luckysheet.create({
+	container: 'luckysheet-container',
+	data: luckyData,
+	lang: 'en',
+	
+	// === UI Settings ===
+	showtoolbar: true,
+	showinfobar: true,
+	showsheetbar: true,
+	showstatisticBar: true,
+	title: 'Vedra bi',
+	
+	// === Sheet Settings ===
+	allowEdit: true,
+	allowUpdate: true,
+	showRowHeader: true,
+	showColumnHeader: true,
+	sheetFormulaBar: true,
+	sheetFilter: true,
+	sheetChart: true,
+	
+	// === Extra Features Enable ===
+	enableAddRow: true, // पंक्ति जोड़ना
+	enableAddCol: true, // कॉलम जोड़ना
+	allowCopy: true, // कॉपी-पेस्ट allow
+	pivotTable: true, // पिवोट टेबल फीचर
+	imageInsert: true, // इमेज डालना allow
+	allowComments: true, // cell पर comments
+	hyperlink: true, // hyperlinks enable
+	dataValidation: true, // data validation rules
+	allowMultipleSheets: true, // multiple sheets allow
+	cellAutoFill: true, // drag-fill enable
+	allowContextMenu: true, // right-click menu enable
+	allowSheetRename: true, // sheet का नाम बदलना
+	allowSheetDelete: true, // sheet delete करना
+	
+	// Chart & Filter Options
+	sheetFilterOptions: { showFilter: true },
+	sheetChartOptions: { showChart: true }
+});
+                console.log("Luckysheet created with user data.");
+
+            } catch (error) {
+                console.error("Error loading data for Luckysheet:", error);
+                loadingOverlay.textContent = 'डेटा लोड करने में त्रुटि। कृपया वापस जाएं।';
+            } finally {
+                loadingOverlay.style.display = 'none';
+            }
+        }
+
+        async function saveDataFromLuckysheet() {
+            const user = auth.currentUser;
+            if (!user) {
+                alert("डेटा सेव करने के लिए कृपया लॉगिन करें।");
+                return;
+            }
+
+            const luckySheetData = luckysheet.getAllSheets()[0].data;
+
+            if (!luckySheetData || luckySheetData.length <= 1) {
+                 alert("सेव करने के लिए कोई डेटा नहीं है।");
+                 return;
+            }
+
+            const headers = luckySheetData[0].map(cell => cell ? cell.v : null).filter(h => h);
+            
+            if (headers.length === 0) {
+                 alert("सेव करने के लिए हेडर नहीं हैं।");
+                 return;
+            }
+            
+            const dataToSave = [];
+            for(let r = 1; r < luckySheetData.length; r++) {
+                const row = luckySheetData[r];
+                if(row && row.some(cell => cell && cell.v)) {
+                    const rowObject = {};
+                    for(let c = 0; c < headers.length; c++) {
+                        const cell = row[c];
+                        if (cell && cell.v !== undefined) {
+                            rowObject[headers[c]] = cell.v;
+                        }
+                    }
+                    dataToSave.push(rowObject);
+                }
+            }
+
+            try {
+                await db.collection('users').doc(user.uid).set({
+                    data: dataToSave,
+                    headers: headers,
+                    lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true });
+                alert('डेटा सफलतापूर्वक सेव किया गया!');
+                console.log("Luckysheet data saved to Firebase successfully!");
+            } catch (error) {
+                console.error("Error saving data:", error);
+                alert('डेटा सेव करने में त्रुटि हुई।');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    loadDataForLuckysheet();
+                } else {
+                    alert("डेटा एडिट करने के लिए कृपया लॉगिन करें।");
+                    window.location.href = 'index.html';
+                }
+            });
+
+            document.getElementById('saveDataBtn').addEventListener('click', saveDataFromLuckysheet);
+            document.getElementById('backBtn').addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>
