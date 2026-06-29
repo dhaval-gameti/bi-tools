@@ -2,24 +2,24 @@ import { headers } from '../store/DataHandler.js';
 import { chartGlobalSettings } from '../js/charts.js';
 import { commonChartOptions } from './uility.js';
 
-export function getBarChartOption(config, data) {
+export function getLineChartOption(config, data) {
     // Error handling
     if (!config || !config.columns || config.columns.length < 2) {
-        console.error('Invalid configuration for bar chart');
+        console.error('Invalid configuration for line chart');
         return commonChartOptions({}, config, chartGlobalSettings);
     }
 
     if (!data || data.length === 0) {
-        console.warn('No data available for bar chart');
+        console.warn('No data available for line chart');
         return commonChartOptions({}, config, chartGlobalSettings);
     }
 
-    const isHorizontal = config.type === 'horizontal-bar';
-    const isStacked = config.type === 'stacked-bar';
-    const isGrouped = config.type === 'grouped-bar' || config.type === 'bar';
+    const isSmooth = config.type === 'smooth-line';
+    const isArea = config.type === 'area-line';
+    const isStacked = config.type === 'stacked-line';
 
-    // Better sampling
-    const sampleSize = 500;
+    // Better sampling for better performance
+    const sampleSize = 1000;
     const sampledData = data.length > sampleSize ? 
         data.filter((_, i) => i % Math.ceil(data.length / sampleSize) === 0) : 
         data;
@@ -36,13 +36,21 @@ export function getBarChartOption(config, data) {
 
     const series = yAxisColumns.map((col, index) => ({
         name: headers[col] || col,
-        type: 'bar',
+        type: 'line',
         data: sampledData.map(row => {
             if (!row || row[col] === null || row[col] === undefined) return null;
             const value = parseFloat(row[col]);
             return isNaN(value) ? null : value;
         }),
         stack: isStacked ? 'total' : undefined,
+        smooth: isSmooth,
+        areaStyle: isArea ? {} : undefined,
+        symbol: sampledData.length > 50 ? 'none' : 'circle',
+        symbolSize: 6,
+        lineStyle: {
+            width: 2,
+            type: config.lineStyle || 'solid'
+        },
         itemStyle: { 
             color: chartGlobalSettings.colorPalette 
                 ? chartGlobalSettings.colorPalette[index % chartGlobalSettings.colorPalette.length]
@@ -50,9 +58,9 @@ export function getBarChartOption(config, data) {
         },
         label: {
             show: chartGlobalSettings.showLabels,
-            position: isHorizontal ? 'right' : 'top',
+            position: 'top',
             formatter: function(params) {
-                return `${params.value}\n${headers[col] || col}`;
+                return `${params.value}`;
             },
             color: getTextColor()
         },
@@ -66,44 +74,49 @@ export function getBarChartOption(config, data) {
         },
         animation: true,
         animationDuration: 1000,
-        animationEasing: 'elasticOut'
+        animationEasing: 'cubicOut'
     }));
 
     const xAxisConfig = {
         show: chartGlobalSettings.gridShowHide,
-        type: isHorizontal ? 'value' : 'category',
+        type: 'category',
         name: config.xAxisLabel,
-        data: isHorizontal ? null : sampledData.map(row => row[xAxisColumn]),
+        data: sampledData.map(row => row[xAxisColumn]),
         axisLabel: { 
             color: getTextColor(),
-            rotate: isHorizontal ? 0 : (sampledData.length > 10 ? 45 : 0)
-        }
+            rotate: sampledData.length > 10 ? 45 : 0,
+            interval: sampledData.length > 20 ? 'auto' : 0
+        },
+        boundaryGap: true
     };
 
     const yAxisConfig = {
         show: chartGlobalSettings.gridShowHide,
-        type: isHorizontal ? 'category' : 'value',
+        type: 'value',
         name: config.yAxisLabel,
-        data: isHorizontal ? sampledData.map(row => row[xAxisColumn]) : null,
         axisLabel: { 
             color: getTextColor() 
+        },
+        splitLine: {
+            show: chartGlobalSettings.gridShowHide,
+            lineStyle: {
+                color: document.body.classList.contains('dark-theme') ? 
+                    'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+                type: 'dashed'
+            }
         }
     };
 
     const option = {
         tooltip: { 
-            trigger: 'item',
+            trigger: 'axis',
             formatter: function(params) {
-                if (Array.isArray(params)) {
-                    let result = `${params[0].name}<br/>`;
-                    params.forEach(param => {
-                        result += `${param.seriesName}: <b>${param.value}</b><br/>`;
-                    });
-                    result += `Total: <b>${params.reduce((sum, param) => sum + param.value, 0)}</b>`;
-                    return result;
-                } else {
-                    return `${params.name}<br/>${params.seriesName}: <b>${params.value}</b>`;
-                }
+                let result = `${params[0].name}<br/>`;
+                params.forEach(param => {
+                    const marker = `<span style="display:inline-block;margin-right:5px;border-radius:50%;width:10px;height:10px;background-color:${param.color}"></span>`;
+                    result += `${marker} ${param.seriesName}: <b>${param.value}</b><br/>`;
+                });
+                return result;
             }
         },
         xAxis: xAxisConfig,
@@ -111,15 +124,25 @@ export function getBarChartOption(config, data) {
         grid: {
             left: '5%',
             right: '5%',
-            bottom: sampledData.length > 15 ? '20%' : '10%',
-            top: sampledData.length > 20 ? '20%' : '15%',
+            bottom: sampledData.length > 15 ? '15%' : '10%',
+            top: '15%',
             containLabel: true
         },
-        dataZoom: chartGlobalSettings.zoomEnable ? [{ type: 'inside' }, { type: 'slider' }] : [],
+        dataZoom: chartGlobalSettings.zoomEnable ? [
+            { 
+                type: 'inside',
+                xAxisIndex: [0]
+            }, 
+            { 
+                type: 'slider',
+                xAxisIndex: [0],
+                bottom: '5%'
+            }
+        ] : [],
         series: series,
         legend: {
             show: true,
-            top: isStacked ? 'top' : 'bottom',
+            top: 'top',
             textStyle: {
                 color: getTextColor()
             }
