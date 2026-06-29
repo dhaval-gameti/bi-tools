@@ -1,0 +1,88 @@
+{
+  "templates": [
+    {
+      "name": "मुख्य शीर्षक",
+      "content": "<h6>मुख्य डैशबोर्ड शीर्षक</h6><p>आपके डेटा का सारांश</p>",
+      "bgColor": "#e0f7fa",
+      "animationClass": "bg-animated-pulse"
+    },
+    {
+      "name": "नोट्स",
+      "content": "<strong>महत्वपूर्ण नोट्स:</strong><br>डेटा में महत्वपूर्ण वृद्धि दिखी।",
+      "bgColor": "#fffde7",
+      "animationClass": ""
+    },
+    {
+      "name": "KPI कार्ड",
+      "content": "<p><strong>विक्री:</strong> ₹50M</p><p><strong>लाभ:</strong> ₹10M</p>",
+      "bgColor": "#f1f8e9",
+      "animationClass": ""
+    },
+    {
+      "name": "डेटा स्रोत",
+      "content": "डेटा स्रोत: Q1 2024 रिपोर्ट",
+      "bgColor": "#f3e5f5",
+      "animationClass": ""
+    },
+    {
+      "name": "एनिमेटेड ग्रेडिएंट",
+      "content": "<h5 style='color: #4A148C;'>गतिशील रिपोर्ट</h5>",
+      "bgColor": "transparent",
+      "animationClass": "bg-animated-gradient"
+    },
+    {
+      "name": "एनिमेटेड रेनबो",
+      "content": "<h5 style='color: #880E4F;'>रंगीन गतिशील रिपोर्ट</h5>",
+      "bgColor": "transparent",
+      "animationClass": "bg-animated-rainbow"
+    },
+    {
+      "name": "फायर ग्लो",
+      "content": "<h5 style='color: #fff;'>जलते रंगों का अहसास</h5>",
+      "bgColor": "transparent",
+      "animationClass": "bg-animated-fire"
+    },
+    {
+      "name": "ओशन वेव",
+      "content": "<h5 style='color: #fff;'>समुद्री लहरों जैसा अहसास</h5>",
+      "bgColor": "transparent",
+      "animationClass": "bg-animated-ocean"
+    },
+    {
+      "name": "ऑरोरा लाइट्स",
+      "content": "<h5 style='color: #fff;'>नॉर्दर्न लाइट्स स्टाइल</h5>",
+      "bgColor": "transparent",
+      "animationClass": "bg-animated-aurora"
+    },
+    {
+      "name": "साइबर नीयॉन",
+      "content": "<h5 style='color: #0ff;'>फ्यूचरिस्टिक नीयॉन ग्लो</h5>",
+      "bgColor": "transparent",
+      "animationClass": "bg-animated-neon"
+    },
+    {
+      "name": "सॉफ्ट सनसेट",
+      "content": "<h5>शांतिपूर्ण अहसास</h5>",
+      "bgColor": "transparent",
+      "animationClass": "bg-static-sunset"
+    },
+    {
+      "name": "कूल मिंट",
+      "content": "<h5>ताजगी और ठंडक</h5>",
+      "bgColor": "transparent",
+      "animationClass": "bg-static-mint"
+    },
+    {
+      "name": "रॉयल ब्लू",
+      "content": "<h5 style='color:#fff;'>गहराई और स्थिरता</h5>",
+      "bgColor": "transparent",
+      "animationClass": "bg-static-royal"
+    },
+    {
+      "name": "एलीगेंट पर्पल",
+      "content": "<h5 style='color:#fff;'>शानदार और रहस्यमय</h5>",
+      "bgColor": "transparent",
+      "animationClass": "bg-static-purple"
+    }
+  ]
+}
