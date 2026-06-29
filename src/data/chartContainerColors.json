@@ -1,0 +1,281 @@
+[
+    {
+        "id": "default-container-color",
+        "name": "डिफ़ॉल्ट",
+        "style": {
+            "backgroundColor": "#f8f9fa",
+            "color": "#212529",
+            "border": "1px solid #dee2e6"
+        },
+        "chartBackgroundColor": "#ffffff"
+    },
+    {
+        "id": "blue-container-color",
+        "name": "आकाश नीला",
+        "style": {
+            "backgroundColor": "#e0f2f7",
+            "color": "#0c5460",
+            "border": "1px solid #a7d9ed"
+        },
+        "chartBackgroundColor": "#f0faff"
+    },
+    {
+        "id": "green-container-color",
+        "name": "पुदीना हरा",
+        "style": {
+            "backgroundColor": "#d4edda",
+            "color": "#155724",
+            "border": "1px solid #a3e2b1"
+        },
+        "chartBackgroundColor": "#f0fff0"
+    },
+    {
+        "id": "warm-container-color",
+        "name": "गर्म",
+        "style": {
+            "backgroundColor": "#fff3cd",
+            "color": "#664d03",
+            "border": "1px solid #ffeeba"
+        },
+        "chartBackgroundColor": "#fffaf0"
+    },
+    {
+        "id": "dark-container-color",
+        "name": "गहरा",
+        "style": {
+            "backgroundColor": "#343a40",
+            "color": "#f8f9fa",
+            "border": "1px solid #495057"
+        },
+        "chartBackgroundColor": "#212529"
+    },
+    {
+        "id": "sunset-orange",
+        "name": "सूरजमुखी नारंगी",
+        "style": {
+            "background": "linear-gradient(45deg, #ffb347, #ffcc33)",
+            "color": "#5a2d00",
+            "border": "1px solid #ffaa33"
+        },
+        "chartBackgroundColor": {
+            "type": "linear",
+            "x": 0,
+            "y": 0,
+            "x2": 1,
+            "y2": 0,
+            "colorStops": [
+                { "offset": 0, "color": "#ffb347" },
+                { "offset": 1, "color": "#ffcc33" }
+            ]
+        }
+    },
+    {
+        "id": "ocean-gradient",
+        "name": "समुद्र धारा",
+        "style": {
+            "background": "linear-gradient(45deg, #00c6ff, #0072ff)",
+            "color": "#ffffff",
+            "border": "1px solid #3399ff"
+        },
+        "chartBackgroundColor": {
+            "type": "linear",
+            "x": 0,
+            "y": 0,
+            "x2": 0,
+            "y2": 1,
+            "colorStops": [
+                { "offset": 0, "color": "#00c6ff" },
+                { "offset": 1, "color": "#0072ff" }
+            ]
+        }
+    },
+    {
+        "id": "junglefire",
+        "name": "जंगल की आग",
+        "style": {
+            "background": "linear-gradient(45deg, #ff0000, #ff8c00, #ffd700)",
+            "color": "#212529",
+            "border": "1px solid #ccc"
+        },
+        "chartBackgroundColor": {
+            "type": "linear",
+            "x": 0,
+            "y": 0,
+            "x2": 1,
+            "y2": 1,
+            "colorStops": [
+                { "offset": 0, "color": "#ff0000" },
+                { "offset": 0.5, "color": "#ff8c00" },
+                { "offset": 1, "color": "#ffd700" }
+            ]
+        }
+    },
+    {
+        "id": "rainbowcandy",
+        "name": "रेनबो कैंडी",
+        "style": {
+            "background": "linear-gradient(45deg, #ff4d94, #cc33ff, #3366ff)",
+            "color": "#212529",
+            "border": "1px solid #ccc"
+        },
+        "chartBackgroundColor": {
+            "type": "linear",
+            "x": 0,
+            "y": 0,
+            "x2": 1,
+            "y2": 1,
+            "colorStops": [
+                { "offset": 0, "color": "#ff4d94" },
+                { "offset": 0.5, "color": "#cc33ff" },
+                { "offset": 1, "color": "#3366ff" }
+            ]
+        }
+    },
+    {
+        "id": "tropicalparadise",
+        "name": "ट्रॉपिकल पैराडाइज",
+        "style": {
+            "background": "linear-gradient(45deg, #00cc66, #ffcc00, #ff6600)",
+            "color": "#212529",
+            "border": "1px solid #ccc"
+        },
+        "chartBackgroundColor": {
+            "type": "linear",
+            "x": 0,
+            "y": 0,
+            "x2": 1,
+            "y2": 1,
+            "colorStops": [
+                { "offset": 0, "color": "#00cc66" },
+                { "offset": 0.5, "color": "#ffcc00" },
+                { "offset": 1, "color": "#ff6600" }
+            ]
+        }
+    },
+    {
+        "id": "magicaurora",
+        "name": "मैजिक ऑरोरा",
+        "style": {
+            "background": "linear-gradient(45deg, #cc00ff, #ff33cc, #3300ff)",
+            "color": "#212529",
+            "border": "1px solid #ccc"
+        },
+        "chartBackgroundColor": {
+            "type": "linear",
+            "x": 0,
+            "y": 0,
+            "x2": 1,
+            "y2": 1,
+            "colorStops": [
+                { "offset": 0, "color": "#cc00ff" },
+                { "offset": 0.5, "color": "#ff33cc" },
+                { "offset": 1, "color": "#3300ff" }
+            ]
+        }
+    },
+    {
+        "id": "neondreams",
+        "name": "नीयन ड्रीम्स",
+        "style": {
+            "background": "linear-gradient(45deg, #00ffff, #ff00ff, #9900ff)",
+            "color": "#ffffff",
+            "border": "1px solid #ffffff"
+        },
+        "chartBackgroundColor": {
+            "type": "linear",
+            "x": 0,
+            "y": 0,
+            "x2": 1,
+            "y2": 1,
+            "colorStops": [
+                { "offset": 0, "color": "#00ffff" },
+                { "offset": 0.5, "color": "#ff00ff" },
+                { "offset": 1, "color": "#9900ff" }
+            ]
+        }
+    },
+    {
+        "id": "sunsetblaze",
+        "name": "सनसेट ब्लेज़",
+        "style": {
+            "background": "linear-gradient(45deg, #ff3300, #ff9900, #ffcc00)",
+            "color": "#212529",
+            "border": "1px solid #ccc"
+        },
+        "chartBackgroundColor": {
+            "type": "linear",
+            "x": 0,
+            "y": 0,
+            "x2": 1,
+            "y2": 1,
+            "colorStops": [
+                { "offset": 0, "color": "#ff3300" },
+                { "offset": 0.5, "color": "#ff9900" },
+                { "offset": 1, "color": "#ffcc00" }
+            ]
+        }
+    },
+    {
+        "id": "electriclime",
+        "name": "इलेक्ट्रिक लाइम",
+        "style": {
+            "background": "linear-gradient(45deg, #00ff00, #ccff00, #00ccff)",
+            "color": "#212529",
+            "border": "1px solid #ccc"
+        },
+        "chartBackgroundColor": {
+            "type": "linear",
+            "x": 0,
+            "y": 0,
+            "x2": 1,
+            "y2": 1,
+            "colorStops": [
+                { "offset": 0, "color": "#00ff00" },
+                { "offset": 0.5, "color": "#ccff00" },
+                { "offset": 1, "color": "#00ccff" }
+            ]
+        }
+    },
+    {
+        "id": "berryblast",
+        "name": "बेरी ब्लास्ट",
+        "style": {
+            "background": "linear-gradient(45deg, #ff3399, #9933ff, #3366ff)",
+            "color": "#ffffff",
+            "border": "1px solid #ffffff"
+        },
+        "chartBackgroundColor": {
+            "type": "linear",
+            "x": 0,
+            "y": 0,
+            "x2": 1,
+            "y2": 1,
+            "colorStops": [
+                { "offset": 0, "color": "#ff3399" },
+                { "offset": 0.5, "color": "#9933ff" },
+                { "offset": 1, "color": "#3366ff" }
+            ]
+        }
+    },
+    {
+        "id": "rangberangi",
+        "name": "रंगबेरंगी",
+        "style": {
+            "background": "linear-gradient(45deg, #ff9999, #99ff99, #9999ff)",
+            "color": "#212529",
+            "border": "1px solid #ccc"
+        },
+        "chartBackgroundColor": {
+            "type": "linear",
+            "x": 0,
+            "y": 0,
+            "x2": 1,
+            "y2": 1,
+            "colorStops": [
+                { "offset": 0, "color": "#ff9999" },
+                { "offset": 0.5, "color": "#99ff99" },
+                { "offset": 1, "color": "#9999ff" }
+            ]
+        }
+    }
+]
